@@ -3,6 +3,7 @@ package models
 import (
 	"fmt"
 	"github.com/astaxie/beego"
+	"strconv"
 	"woaiziji/utils"
 )
 
@@ -106,6 +107,28 @@ func QueryArticleRowNum() int {
 //设置页数
 func SetArticleRowsNum(){
 	artcileRowsNum = QueryArticleRowNum()
+}
+
+func QueryArticleWithId(id int) Article {
+	row := utils.QueryRowDB("select id,title,tags,short,content,author,createtime from article where id=" + strconv.Itoa(id))
+	title := ""
+	tags := ""
+	short := ""
+	content := ""
+	author := ""
+	var createtime int64
+	createtime = 0
+	_ = row.Scan(&id, &title, &tags, &short, &content, &author, &createtime)
+	art := Article{id, title, tags, short, content, author, createtime}
+	return art
+}
+
+//----------修改数据----------
+
+func UpdateArticle(article Article) (int64, error) {
+	//数据库操作
+	return utils.ModifyDB("update article set title=?,tags=?,short=?,content=? where id=?",
+		article.Title, article.Tags, article.Short, article.Content, article.Id)
 }
 
 
