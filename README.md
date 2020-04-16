@@ -14,5 +14,14 @@ export GOPATH=$HOME/Applications/Go
 * centos7 下使用yum install  bison ed gawk gcc libc6-dev make
 ## 3.获取go源码
 * [下载地址](https://golang.org/dl/)
-
+```
+ wget https://storage.googleapis.com/golang/go<VERSION>.src.tar.gz
+ tar -zxvf go<VERSION>.src.tar.gz
+ sudo mv go $GOROOT
+```
+## 4.构建go
+```go
+ cd $GOROOT/src
+ ./all.bash
+```
 
